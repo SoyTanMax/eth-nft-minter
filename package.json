@@ -7,7 +7,9 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "bulma": "^0.9.3",
     "core-js": "^3.6.5",
+    "ethers": "^5.5.2",
     "vue": "^3.0.0",
     "vuex": "^4.0.0-0"
   },

@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+      <button class="button is-fullwidth has-text-weight-bold" @click="connectWallet" v-if="!currAccount">Connect Wallet</button>
+      <div class="connected" v-else>
+        <p class="block has-text-centered">Address: {{ currAccount }}</p>
+        <button class="button is-fullwidth has-text-weight-bold block" @click="mintNFT">{{ status }}</button>
+        <p v-if="transaction" class="has-text-centered">{{ transaction }}</p>
+      </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import { onBeforeMount, ref} from '@vue/runtime-core'
+import connectWallet from '@/composables/connectWallet'
+import { getWallet, currAccount } from '@/composables/getWallet'
+import {mintNFT, status, transaction} from '@/composables/mintNFT'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  setup(){
+      onBeforeMount(()=>{
+          getWallet()
+      })
+
+      return {connectWallet, currAccount, mintNFT, status, transaction}
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.app{
+  width: 40%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 </style>
